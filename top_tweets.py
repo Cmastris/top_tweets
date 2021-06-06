@@ -1,4 +1,3 @@
-import config
 import twitter_auth
 
 

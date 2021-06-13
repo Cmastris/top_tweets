@@ -2,10 +2,10 @@ import twitter_auth
 
 
 class Account:
-    """Retrieve, sort, and return the Tweets of a Twitter user account."""
+    """Retrieve, sort, filter, and return the top Tweets of a Twitter user account."""
 
-    # Attributes: account name, account handle, Tweets (list of Tweet)
-    def __init__(self, handle):
+    # Attributes: username, display name
+    def __init__(self, username):
         # TODO
         pass
 
@@ -13,30 +13,36 @@ class Account:
         # TODO
         pass
 
-    def fetch_tweets(self):
-        """Fetch the account's public Tweets via Tweepy and assign to self.tweets."""
+    def get_top_tweets_num(self, num_days, metric, top_num):
+        """Return the top `top_num` Tweets from the previous `num_days`, based on `metric`."""
         # TODO
         pass
 
-    def sort_tweets(self, criteria):
-        """Sort all Tweets by Likes or Retweets and assign to self.tweets."""
+    def get_top_tweets_percent(self, num_days, metric, top_percent):
+        """Return the top `top_percent` Tweets from the previous `num_days`, based on `metric`."""
         # TODO
         pass
 
-    def top_tweets_num(self, num):
-        """Return the top `num` Tweets based on the most recent sort."""
+    def _fetch_tweets(self, num_days):
+        """Fetch and return the account's public Tweets from the previous `num_days`."""
         # TODO
         pass
 
-    def top_tweets_percent(self, percent):
-        """Return the top `percent` Tweets based on the most recent sort."""
+    def _sort_tweets(self, tweets, metric):
+        """Sort and return the Tweets based on `metric`."""
+        # TODO
+        pass
+
+    def _filter_tweets(self, tweets, top_num):
+        """Filter and return the `top_num` Tweets."""
         # TODO
         pass
 
 
 class Tweet:
     """A single Tweet and its associated data/metrics."""
-    # Attributes: Account, ID, text, hashtags, publish date, Likes, Retweets, number of replies
+    # Attributes: Account, ID, text, hashtags, publish date, Likes, Retweets, number of replies,
+    # total_engagement, rank
     def __init__(self, account, tid):
         # TODO
         pass

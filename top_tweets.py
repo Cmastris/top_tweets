@@ -74,9 +74,105 @@ class Account:
 
 
 class Tweet:
-    """A single Tweet and its associated data/metrics."""
-    # Attributes: Account, ID, text, hashtags, publish date, Likes, Retweets, number of replies,
-    # number of combined Likes and Retweets, rank
-    def __init__(self, account, tid):
-        # TODO
-        pass
+    """A single Tweet and its associated data/metrics.
+
+    https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet
+
+    Attributes:
+        account (Account): the Twitter user account which published the Tweet.
+        status (tweepy.models.Status): the Tweepy Status (Tweet) object.
+        id (str): the Tweet's unique identifier.
+        publish_time (str): UTC date and time when the Tweet was published.
+        is_quote_tweet (bool): whether the Tweet is a Quote Tweet.
+        quoted_tweet_id (str or None): the quoted Tweet's unique identifier, or None if
+            the Tweet is not a Quote Tweet.
+        retweeted_tweet (tweepy.models.Status or None): the Retweeted Tweet Tweepy Status (Tweet)
+            object, or None if the Tweet is not a Retweet.
+        text (str): the UTF-8 text of the Tweet.
+        hashtags (list of dict): list of Twitter API (v1) Hashtag object.
+        likes (int): how many times the Tweet has been Liked.
+        retweets (int): how many times the Tweet has been Retweeted.
+        likes_retweets_combined (int): the sum of the Tweet's Likes and Retweets.
+        rank (int or None): the Tweet's rank (1 is best/highest) relative to other Tweets that
+            have been sorted by engagement, or None if Tweets haven't been sorted.
+        retweeted (bool): whether the Tweet has been Retweeted by the authenticating user.
+
+    """
+    def __init__(self, account, status):
+        self.account = account
+        self.status = status
+        self.id = status.id_str
+        self.publish_time = status.created_at
+        self.is_quote_tweet = status.is_quote_status
+        if self.is_quote_tweet:
+            self.quoted_tweet_id = status.quoted_status_id_str
+        else:
+            self.quoted_tweet_id = None
+
+        try:
+            self.retweeted_tweet = status.retweeted_status
+        except AttributeError:
+            self.retweeted_tweet = None
+
+        try:
+            # If `tweet_mode="extended"`
+            self.text = status.full_text
+        except AttributeError:
+            self.text = status.text
+
+        self.hashtags = status.entities.get("hashtags")
+        self.likes = status.favorite_count
+        self.retweets = status.retweet_count
+        self.likes_retweets_combined = self.likes + self.retweets
+        self.rank = None
+        self.retweeted = status.retweeted
+
+
+# test_tweets = twitter_auth.API.home_timeline()
+# test_tweet = Tweet(Account("test"), test_tweets[0])
+
+# test_tweets = twitter_auth.API.lookup_statuses([1405193581556637698])
+# test_tweet = Tweet(Account("test"), test_tweets[0])
+
+user_tweets = twitter_auth.API.user_timeline("TechTopTweets1", tweet_mode="extended")
+test_tweet = Tweet(Account("test"), user_tweets[2])
+test_retweet = Tweet(Account("test"), user_tweets[1])
+test_quote_tweet = Tweet(Account("test"), user_tweets[0])
+
+print(test_tweet.id)
+print(test_tweet.publish_time)
+print("Quote: " + str(test_tweet.is_quote_tweet))
+print("Retweeted Tweet: " + str(test_tweet.retweeted_tweet))
+print("Retweeted? " + str(test_tweet.retweeted))
+print("Quoted ID: " + str(test_tweet.quoted_tweet_id))
+print(test_tweet.text)
+print(test_tweet.hashtags)
+print(test_tweet.likes)
+print(test_tweet.retweets)
+
+print("")
+print(test_retweet.id)
+print(test_retweet.publish_time)
+print("Quote: " + str(test_retweet.is_quote_tweet))
+print("Retweeted Tweet: " + str(test_retweet.retweeted_tweet))
+print("Retweeted? " + str(test_retweet.retweeted))
+print("Quoted ID: " + str(test_retweet.quoted_tweet_id))
+print(test_retweet.text)
+print(test_retweet.hashtags)
+print(test_retweet.likes)
+print(test_retweet.retweets)
+
+print("")
+print(test_quote_tweet.id)
+print(test_quote_tweet.publish_time)
+print("Quote: " + str(test_quote_tweet.is_quote_tweet))
+print("Retweeted Tweet: " + str(test_quote_tweet.retweeted_tweet))
+print("Retweeted? " + str(test_quote_tweet.retweeted))
+print("Quoted ID: " + test_quote_tweet.quoted_tweet_id)
+print(test_quote_tweet.text)
+print(test_quote_tweet.hashtags)
+print(test_quote_tweet.likes)
+print(test_quote_tweet.retweets)
+
+# test_user = twitter_auth.API.lookup_users(screen_names=["TechTopTweets1"])[0]
+# print(test_user.screen_name)

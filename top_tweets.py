@@ -2,12 +2,31 @@ import twitter_auth
 
 
 class Account:
-    """Retrieve, sort, filter, and return the top Tweets of a Twitter user account."""
+    """Retrieve, sort, filter, and return the top Tweets of a Twitter user account.
 
-    # Attributes: username, display name
-    def __init__(self, username):
-        # TODO
-        pass
+    https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/user
+
+    Attributes:
+        user (Tweepy User): the Tweepy User object.
+        username (str): the User's screen name/handle (without "@").
+        user_id (str): the User's unique identifier.
+        name (str): the User's profile name.
+        statuses_count (int): the number of Tweets (including Retweets) published by the User.
+
+    """
+    def __init__(self, username=None, user_id=None):
+        if username is not None:
+            self.user = twitter_auth.API.get_user(screen_name=username)
+        elif user_id is not None:
+            self.user = twitter_auth.API.get_user(user_id=user_id)
+        else:
+            raise ValueError("Error initialising Account. "
+                             "You must provide a `username` or `user_id` as a keyword argument.")
+
+        self.username = self.user.screen_name
+        self.user_id = self.user.id_str
+        self.name = self.user.name
+        self.statuses_count = self.user.statuses_count
 
     def __str__(self):
         # TODO
@@ -174,5 +193,12 @@ print(test_quote_tweet.hashtags)
 print(test_quote_tweet.likes)
 print(test_quote_tweet.retweets)
 
-# test_user = twitter_auth.API.lookup_users(screen_names=["TechTopTweets1"])[0]
-# print(test_user.screen_name)
+
+test_acc1 = Account(username="TechTopTweets1")
+print(test_acc1.username)
+print(test_acc1.name)
+print(test_acc1.user_id)
+print(test_acc1.statuses_count)
+
+test_acc2 = Account(user_id="847756452")
+print(test_acc2.name)

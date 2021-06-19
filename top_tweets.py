@@ -99,7 +99,7 @@ class Tweet:
 
     Attributes:
         account (Account): the Twitter user account which published the Tweet.
-        status (tweepy.models.Status): the Tweepy Status (Tweet) object.
+        status (Tweepy Status): the Tweepy Status (Tweet) object.
         id (str): the Tweet's unique identifier.
         publish_time (str): UTC date and time when the Tweet was published.
         is_quote_tweet (bool): whether the Tweet is a Quote Tweet.
@@ -150,7 +150,7 @@ class Tweet:
 # test_tweets = twitter_auth.API.home_timeline()
 # test_tweet = Tweet(Account("test"), test_tweets[0])
 
-# test_tweets = twitter_auth.API.lookup_statuses([1405193581556637698])
+# test_tweets = twitter_auth.API.statuses_lookup([1405193581556637698])
 # test_tweet = Tweet(Account("test"), test_tweets[0])
 
 user_tweets = twitter_auth.API.user_timeline("TechTopTweets1", tweet_mode="extended")

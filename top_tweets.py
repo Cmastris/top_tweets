@@ -32,7 +32,7 @@ class Account:
         # TODO
         pass
 
-    def get_top_tweets_num(self, num_days, metric, top_num):
+    def get_top_tweets_num(self, num_days, metric, top_num, max_tweets=None):
         """Return the top `top_num` Tweets from the previous `num_days`, based on `metric`.
 
         For example, get_top_tweets_num(30, likes, 10) would return the top 10 Tweets based
@@ -47,14 +47,18 @@ class Account:
                 - likes_retweets_combined
                 - num_replies
             top_num (int): the top number of Tweets to return following sorting.
+            max_tweets (int or None): the maximum number of Tweets to retrieve from the previous
+                `num_days`, before sorting and filtering (defaults to None). For example, can be
+                used in combination with a very high `num_days` (e.g. 9999) to find top Tweets from
+                the previous 100 Tweets regardless of their publish date.
 
         Returns:
-            list of Tweet: sorted and filtered based on `num_days`, `metric`, and `top_num`.
+            list of Tweet: sorted and filtered based on passed arguments.
             """
         # TODO
         pass
 
-    def get_top_tweets_percent(self, num_days, metric, top_percent):
+    def get_top_tweets_percent(self, num_days, metric, top_percent, max_tweets=None):
         """Return the top `top_percent` Tweets from the previous `num_days`, based on `metric`.
 
         For example, get_top_tweets_percent(30, likes, 10) would return the top 10% of Tweets
@@ -69,9 +73,13 @@ class Account:
                 - likes_retweets_combined
                 - num_replies
             top_percent (int): the top percentage (1-100) of Tweets to return following sorting.
+            max_tweets (int or None): the maximum number of Tweets to retrieve from the previous
+                `num_days`, before sorting and filtering (defaults to None). For example, can be
+                used in combination with a very high `num_days` (e.g. 9999) to find top Tweets from
+                the previous 100 Tweets regardless of their publish date.
 
         Returns:
-            list of Tweet: sorted and filtered based on `num_days`, `metric`, and `top_percent`.
+            list of Tweet: sorted and filtered based on passed arguments.
             """
         # TODO
         pass

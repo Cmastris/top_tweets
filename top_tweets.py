@@ -1,3 +1,5 @@
+import datetime
+
 import twitter_auth
 
 
@@ -116,7 +118,7 @@ class Tweet:
         account (Account): the Twitter user account which published the Tweet.
         status (Tweepy Status): the Tweepy Status (Tweet) object.
         id (str): the Tweet's unique identifier.
-        publish_time (datetime): datetime representing when the Tweet was published.
+        publish_time (datetime): datetime.datetime representing when the Tweet was published.
         is_quote_tweet (bool): whether the Tweet is a Quote Tweet.
         quoted_tweet_id (str or None): the quoted Tweet's unique identifier, or None if
             the Tweet is not a Quote Tweet.
@@ -160,6 +162,16 @@ class Tweet:
         self.likes_retweets_combined = self.likes + self.retweets
         self.rank = None
         self.retweeted = status.retweeted
+
+    def published_before(self, time):
+        """Return whether (True/False) the Tweet was published before a given datetime.
+
+        Args:
+            time (datetime): a datetime.datetime object.
+
+        """
+        # TODO
+        return False
 
 
 # test_tweets = twitter_auth.API.home_timeline()

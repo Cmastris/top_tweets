@@ -84,8 +84,15 @@ class Account:
         # TODO
         pass
 
-    def _fetch_tweets(self, num_days):
-        """Fetch and return the account's public Tweets from the previous `num_days`."""
+    def _fetch_tweets(self, num_days, max_tweets):
+        """Fetch and return a list of the account's public Tweets.
+
+        Args:
+            num_days (int): the historic Tweet collection period in days, including the current day.
+            max_tweets (int or None): the maximum number of Tweets to retrieve from the previous
+                `num_days` (defaults to None).
+
+        """
         # TODO
         pass
 

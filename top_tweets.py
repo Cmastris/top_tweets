@@ -170,8 +170,7 @@ class Tweet:
             time (datetime): a datetime.datetime object.
 
         """
-        # TODO
-        return False
+        return self.publish_time < time
 
 
 # test_tweets = twitter_auth.API.home_timeline()

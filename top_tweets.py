@@ -209,11 +209,4 @@ print(test_quote_tweet.likes)
 print(test_quote_tweet.retweets)
 
 
-test_acc1 = Account(username="TechTopTweets1")
-print(test_acc1.username)
-print(test_acc1.name)
-print(test_acc1.user_id)
-print(test_acc1.statuses_count)
-
-test_acc2 = Account(user_id="847756452")
-print(test_acc2.name)
+test_acc = Account(username="TechTopTweets1")

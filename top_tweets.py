@@ -116,7 +116,7 @@ class Tweet:
         account (Account): the Twitter user account which published the Tweet.
         status (Tweepy Status): the Tweepy Status (Tweet) object.
         id (str): the Tweet's unique identifier.
-        publish_time (str): UTC date and time when the Tweet was published.
+        publish_time (datetime): datetime representing when the Tweet was published.
         is_quote_tweet (bool): whether the Tweet is a Quote Tweet.
         quoted_tweet_id (str or None): the quoted Tweet's unique identifier, or None if
             the Tweet is not a Quote Tweet.

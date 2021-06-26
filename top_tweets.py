@@ -31,8 +31,7 @@ class Account:
         self.statuses_count = self.user.statuses_count
 
     def __str__(self):
-        # TODO
-        pass
+        return "{} (@{})".format(self.name, self.username)
 
     def get_top_tweets_num(self, num_days, metric, top_num, max_tweets=None):
         """Return the top `top_num` Tweets from the previous `num_days`, based on `metric`.

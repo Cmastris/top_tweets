@@ -95,6 +95,9 @@ class Account:
 
         """
         # TODO
+        # https://docs.tweepy.org/en/v3.10.0/cursor_tutorial.html
+        # https://docs.tweepy.org/en/v3.10.0/api.html#API.user_timeline
+        # tweet_mode=extended
         pass
 
     def _sort_tweets(self, tweets, metric):

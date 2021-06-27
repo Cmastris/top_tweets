@@ -1,6 +1,6 @@
 import datetime
 
-import twitter_auth
+from top_tweets import twitter_auth
 
 
 class Account:

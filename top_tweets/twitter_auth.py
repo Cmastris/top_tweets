@@ -1,6 +1,6 @@
 import tweepy
 
-import config
+from top_tweets import config
 
 
 def tweepy_auth():

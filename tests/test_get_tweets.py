@@ -14,6 +14,14 @@ class TestTweet:
 
         monkeypatch.setattr(Tweet, "__init__", mock_init)
 
-    def test_published_before(self, mock_dated_tweet):
+    def test_published_before_true(self, mock_dated_tweet):
         tweet = Tweet(datetime.datetime(2021, 6, 1, 12, 0, 0))
         assert tweet.published_before(datetime.datetime(2021, 7, 1, 12, 0, 0))
+
+    @pytest.mark.parametrize("time", [
+        datetime.datetime(2021, 5, 1, 12, 0, 0),  # Before publish date
+        datetime.datetime(2021, 6, 1, 12, 0, 0),  # Equal to publish date
+    ])
+    def test_published_before_false(self, mock_dated_tweet, time):
+        tweet = Tweet(datetime.datetime(2021, 6, 1, 12, 0, 0))
+        assert not tweet.published_before(time)

@@ -5,6 +5,17 @@ import pytest
 from top_tweets.get_tweets import Account, Tweet
 
 
+class TestAccount:
+    @pytest.fixture
+    def mock_account(self, monkeypatch):
+        """Monkeypatch __init__ to skip API calls."""
+
+        def mock_init(self):
+            pass
+
+        monkeypatch.setattr(Account, "__init__", mock_init)
+
+
 class TestTweet:
     @pytest.fixture
     def mock_dated_tweet(self, monkeypatch):

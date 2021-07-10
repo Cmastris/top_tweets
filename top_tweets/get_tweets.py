@@ -100,6 +100,20 @@ class Account:
         # tweet_mode=extended
         pass
 
+    @staticmethod
+    def _cut_off_time(latest_date, num_days):
+        """Return the Tweet collection cut-off time (datetime.datetime).
+
+        Args:
+            latest_date (datetime.date): a datetime.date object representing the latest
+                (most recent) date to collect Tweets from, e.g. the current day.
+            num_days (int): the historic Tweet collection period in days, inclusive of the
+                `latest_date`.
+
+        """
+        date = latest_date - datetime.timedelta(days=(num_days - 1))
+        return datetime.datetime(date.year, date.month, date.day)
+
     def _sort_tweets(self, tweets, metric):
         """Sort and return the Tweets based on `metric`."""
         # TODO

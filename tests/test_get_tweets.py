@@ -15,6 +15,14 @@ class TestAccount:
 
         monkeypatch.setattr(Account, "__init__", mock_init)
 
+    def test_cut_off_time_curr_day(self):
+        latest_date = datetime.date(2021, 7, 1)
+        assert Account._cut_off_time(latest_date, 1) == datetime.datetime(2021, 7, 1, 0, 0, 0)
+
+    def test_cut_off_time_multiple_days(self):
+        latest_date = datetime.date(2021, 7, 1)
+        assert Account._cut_off_time(latest_date, 3) == datetime.datetime(2021, 6, 29, 0, 0, 0)
+
 
 class TestTweet:
     @pytest.fixture

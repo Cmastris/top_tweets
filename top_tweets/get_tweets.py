@@ -1,5 +1,7 @@
 import datetime
 
+import tweepy
+
 from top_tweets import twitter_auth
 
 
@@ -40,6 +42,9 @@ class Account:
         on their number of Likes (in order from highest to lowest Likes) from the previous
         30 days (including the current day).
 
+        Excludes Retweets, Quote Tweets, and replies. API response and rate limits apply:
+        https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline.
+
         Args:
             num_days (int): the historic Tweet collection period in days, including the current day.
             metric (str): the metric to sort Tweets by, largest to smallest. One of:
@@ -66,6 +71,9 @@ class Account:
         based on their number of Likes (in order from highest to lowest Likes) from the previous
         30 days (including the current day).
 
+        Excludes Retweets, Quote Tweets, and replies. API response and rate limits apply:
+        https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline.
+
         Args:
             num_days (int): the historic Tweet collection period in days, including the current day.
             metric (str): the metric to sort Tweets by, largest to smallest. One of:
@@ -88,17 +96,35 @@ class Account:
     def _fetch_tweets(self, num_days, max_tweets):
         """Fetch and return a list of the account's public Tweets.
 
+        Excludes Retweets, Quote Tweets, and replies. API response and rate limits apply:
+        https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline.
+
         Args:
             num_days (int): the historic Tweet collection period in days, including the current day.
             max_tweets (int or None): the maximum number of Tweets to retrieve from the previous
                 `num_days` (defaults to None).
 
         """
-        # TODO
-        # https://docs.tweepy.org/en/v3.10.0/cursor_tutorial.html
-        # https://docs.tweepy.org/en/v3.10.0/api.html#API.user_timeline
-        # tweet_mode=extended
-        pass
+        cut_off = self._cut_off_time(datetime.date.today(), num_days)
+        tweets = []
+        # Cursor object handles pagination and returns a list of Tweepy Status
+        for t in tweepy.Cursor(twitter_auth.API.user_timeline,
+                               id=self.user_id,
+                               include_rts=False,
+                               exclude_replies=True,
+                               tweet_mode="extended").items():
+
+            tweet = Tweet(self, t)
+            if len(tweets) == max_tweets:
+                break
+            elif tweet.published_before(cut_off):
+                break
+            elif tweet.is_quote_tweet:
+                continue
+            else:
+                tweets.append(tweet)
+
+        return tweets
 
     @staticmethod
     def _cut_off_time(latest_date, num_days):
@@ -234,6 +260,8 @@ class Tweet:
 # print(test_quote_tweet.hashtags)
 # print(test_quote_tweet.likes)
 # print(test_quote_tweet.retweets)
-#
-#
-# test_acc = Account(username="TechTopTweets1")
+
+
+# acc = Account(username="TechTopTweets1")
+# acc = Account(username="Cmastris")
+# print(acc._fetch_tweets(365, None))

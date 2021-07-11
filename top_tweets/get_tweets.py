@@ -146,7 +146,7 @@ class Account:
         metric = metric.lower()
         valid_metrics = ["likes", "retweets", "likes_retweets_combined"]
         assert metric in valid_metrics, "{} is not a valid metric to sort Tweets by.".format(metric)
-        print("Sorting Tweets by '{}' based on {}...".format(self, metric))
+        print("Sorting Tweets based on {}...".format(metric))
         sorted_tweets = sorted(tweets, key=lambda t: getattr(t, metric), reverse=True)
 
         rank = 1
@@ -158,9 +158,10 @@ class Account:
 
     def _filter_tweets(self, tweets, top_num):
         """Filter and return the `top_num` Tweets."""
-        print("Returning the top {} Tweets by '{}'...".format(top_num, self))
         if top_num > len(tweets):
-            print("Only {} Tweets fetched; returning all {}.".format(len(tweets), len(tweets)))
+            print("Only {} Tweets fetched; returning all {}...".format(len(tweets), len(tweets)))
+        else:
+            print("Returning the top {} of {} Tweets...".format(top_num, len(tweets)))
         return tweets[:top_num]
 
 

@@ -107,6 +107,7 @@ class Account:
         """
         cut_off = self._cut_off_time(datetime.date.today(), num_days)
         tweets = []
+        print("Fetching Tweets by '{}'...".format(self))
         # Cursor object handles pagination and returns a list of Tweepy Status
         for t in tweepy.Cursor(twitter_auth.API.user_timeline,
                                id=self.user_id,
@@ -124,6 +125,8 @@ class Account:
             else:
                 tweets.append(tweet)
 
+        assert len(tweets) > 0, "No Tweets (excluding Retweets/Quote Tweets/replies) returned " \
+                                "for '{}' since {}.".format(self, cut_off)
         return tweets
 
     @staticmethod

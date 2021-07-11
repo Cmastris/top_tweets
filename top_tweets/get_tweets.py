@@ -234,16 +234,11 @@ class Tweet:
         return self.publish_time < time
 
 
-# test_tweets = twitter_auth.API.home_timeline()
-# test_tweet = Tweet(Account("test"), test_tweets[0])
-
-# test_tweets = twitter_auth.API.statuses_lookup([1405193581556637698])
-# test_tweet = Tweet(Account("test"), test_tweets[0])
-
+# test_acc = Account(username="TechTopTweets1")
 # user_tweets = twitter_auth.API.user_timeline("TechTopTweets1", tweet_mode="extended")
-# test_tweet = Tweet(Account("test"), user_tweets[2])
-# test_retweet = Tweet(Account("test"), user_tweets[1])
-# test_quote_tweet = Tweet(Account("test"), user_tweets[0])
+# test_tweet = Tweet(test_acc, user_tweets[2])
+# test_retweet = Tweet(test_acc, user_tweets[1])
+# test_quote_tweet = Tweet(test_acc, user_tweets[0])
 #
 # print(test_tweet.id)
 # print(test_tweet.publish_time)
@@ -279,7 +274,6 @@ class Tweet:
 # print(test_quote_tweet.hashtags)
 # print(test_quote_tweet.likes)
 # print(test_quote_tweet.retweets)
-
 
 # acc = Account(username="TechTopTweets1")
 # acc = Account(username="Cmastris")

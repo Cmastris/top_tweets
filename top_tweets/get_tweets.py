@@ -59,9 +59,11 @@ class Account:
 
         Returns:
             list of Tweet: sorted and filtered based on passed arguments.
-            """
-        # TODO
-        pass
+
+        """
+        fetched_tweets = self._fetch_tweets(num_days, max_tweets)
+        sorted_tweets = self._sort_tweets(fetched_tweets, metric)
+        return self._filter_tweets(sorted_tweets, top_num)
 
     def get_top_tweets_percent(self, num_days, metric, top_percent, max_tweets=None):
         """Return the top `top_percent` Tweets from the previous `num_days`, based on `metric`.
@@ -278,7 +280,4 @@ class Tweet:
 
 # acc = Account(username="TechTopTweets1")
 # acc = Account(username="Cmastris")
-# fetched = acc._fetch_tweets(365, None)
-# sorted = acc._sort_tweets(fetched, "likes")
-# filtered = acc._filter_tweets(sorted, 5)
-# print(filtered)
+# print(acc.get_top_tweets_num(90, "likes", 5))

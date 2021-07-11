@@ -51,7 +51,6 @@ class Account:
                 - likes
                 - retweets
                 - likes_retweets_combined
-                - num_replies
             top_num (int): the top number of Tweets to return following sorting.
             max_tweets (int or None): the maximum number of Tweets to retrieve from the previous
                 `num_days`, before sorting and filtering (defaults to None). For example, can be
@@ -80,7 +79,6 @@ class Account:
                 - likes
                 - retweets
                 - likes_retweets_combined
-                - num_replies
             top_percent (int): the top percentage (1-100) of Tweets to return following sorting.
             max_tweets (int or None): the maximum number of Tweets to retrieve from the previous
                 `num_days`, before sorting and filtering (defaults to None). For example, can be
@@ -144,9 +142,19 @@ class Account:
         return datetime.datetime(date.year, date.month, date.day)
 
     def _sort_tweets(self, tweets, metric):
-        """Sort and return the Tweets based on `metric`."""
-        # TODO
-        pass
+        """Sort and return a list of Tweet based on `metric` (highest to lowest)."""
+        metric = metric.lower()
+        valid_metrics = ["likes", "retweets", "likes_retweets_combined"]
+        assert metric in valid_metrics, "{} is not a valid metric to sort Tweets by.".format(metric)
+        print("Sorting Tweets by '{}' based on {}...".format(self, metric))
+        sorted_tweets = sorted(tweets, key=lambda t: getattr(t, metric), reverse=True)
+
+        rank = 1
+        for tweet in sorted_tweets:
+            tweet.rank = rank
+            rank += 1
+
+        return sorted_tweets
 
     def _filter_tweets(self, tweets, top_num):
         """Filter and return the `top_num` Tweets."""
@@ -267,4 +275,5 @@ class Tweet:
 
 # acc = Account(username="TechTopTweets1")
 # acc = Account(username="Cmastris")
-# print(acc._fetch_tweets(365, None))
+# fetched = acc._fetch_tweets(365, None)
+# sorted = acc._sort_tweets(fetched, "likes")

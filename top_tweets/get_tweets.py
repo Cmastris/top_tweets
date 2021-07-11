@@ -158,8 +158,10 @@ class Account:
 
     def _filter_tweets(self, tweets, top_num):
         """Filter and return the `top_num` Tweets."""
-        # TODO
-        pass
+        print("Returning the top {} Tweets by '{}'...".format(top_num, self))
+        if top_num > len(tweets):
+            print("Only {} Tweets fetched; returning all {}.".format(len(tweets), len(tweets)))
+        return tweets[:top_num]
 
 
 class Tweet:
@@ -277,3 +279,5 @@ class Tweet:
 # acc = Account(username="Cmastris")
 # fetched = acc._fetch_tweets(365, None)
 # sorted = acc._sort_tweets(fetched, "likes")
+# filtered = acc._filter_tweets(sorted, 5)
+# print(filtered)

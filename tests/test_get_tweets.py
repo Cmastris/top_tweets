@@ -75,6 +75,22 @@ class TestAccount:
         assert sorted_tweets == [c20, c5, c0]
         assert sorted_tweets[2].rank == 3
 
+    def test_filter_tweets_lower_num(self, mock_account, mock_tweet):
+        acc = Account()
+        l0 = Tweet(0, 5, 5)
+        l5 = Tweet(5, 15, 20)
+        l10 = Tweet(10, 0, 10)
+        sorted_tweets = [l10, l5, l0]
+        assert acc._filter_tweets(sorted_tweets, 2) == [l10, l5]
+
+    def test_filter_tweets_higher_num(self, mock_account, mock_tweet):
+        acc = Account()
+        l0 = Tweet(0, 5, 5)
+        l5 = Tweet(5, 15, 20)
+        l10 = Tweet(10, 0, 10)
+        sorted_tweets = [l10, l5, l0]
+        assert acc._filter_tweets(sorted_tweets, 5) == [l10, l5, l0]
+
 
 class TestTweet:
     @pytest.fixture

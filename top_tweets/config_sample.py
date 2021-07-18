@@ -1,4 +1,4 @@
-# Twitter API authentication
+# Twitter API authentication (use bot account credentials, if applicable)
 CONSUMER_KEY = ""
 CONSUMER_SECRET = ""
 ACCESS_TOKEN = ""

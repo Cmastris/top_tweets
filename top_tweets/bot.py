@@ -94,6 +94,11 @@ class Bot:
         # TODO
         pass
 
+    def _select_tweet(self, tweets):
+        """Return the top previously unshared Tweet from a list of ranked Tweets."""
+        # TODO
+        pass
+
     @staticmethod
     def _get_quote_content(tweet, metric):
         """Return the Quote Tweet content (str)."""

@@ -81,8 +81,32 @@ class Bot:
             quote (bool): whether the Tweet should be Quote Tweeted (True) or Retweeted (False)
 
         """
-        # TODO
-        pass
+        if metric == "default":
+            metric = self.metric
+
+        if usernames is not None:
+            user = self._get_random_user(usernames)
+            account = get_tweets.Account(username=user)
+        elif user_ids is not None:
+            user = self._get_random_user(user_ids)
+            account = get_tweets.Account(user_id=user)
+        else:
+            # User list not provided, default list used instead
+            if self.usernames is not None:
+                user = self._get_random_user(self.usernames)
+                account = get_tweets.Account(username=user)
+            else:
+                user = self._get_random_user(self.user_ids)
+                account = get_tweets.Account(user_id=user)
+
+        tweets = account.get_top_tweets_percent(num_days, metric, 100)
+        tweet = self._select_tweet(tweets)
+
+        if quote:
+            content = self._get_quote_content(tweet, metric)
+            self._quote_tweet(tweet, content)
+        else:
+            self._retweet(tweet)
 
     def previously_shared(self, tweet):
         """Return whether (True/False) the tweet has been previously Quote Tweeted or Retweeted.
@@ -116,8 +140,8 @@ class Bot:
         pass
 
     @staticmethod
-    def _get_random_user(usernames):
-        """Return a randomly selected user from a list of usernames."""
+    def _get_random_user(user_list):
+        """Return a randomly selected item from a list of usernames or user IDs."""
         # TODO
         pass
 

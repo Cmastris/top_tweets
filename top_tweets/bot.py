@@ -45,8 +45,18 @@ class Bot:
             quote (bool): whether the Tweet should be Quote Tweeted (True) or Retweeted (False)
 
         """
-        # TODO
-        pass
+        if metric == "default":
+            metric = self.metric
+
+        account = get_tweets.Account(username=username, user_id=user_id)
+        tweets = account.get_top_tweets_percent(num_days, metric, 100)
+        tweet = self._select_tweet(tweets)
+
+        if quote:
+            content = self._get_quote_content(tweet, metric)
+            self._quote_tweet(tweet, content)
+        else:
+            self._retweet(tweet)
 
     def share_from_random_user(self, num_days, usernames=None, user_ids=None, metric="default",
                                quote=True):
@@ -89,8 +99,8 @@ class Bot:
         # TODO
         pass
 
-    def _quote_tweet(self, tweet):
-        """Quote Tweet the Tweet."""
+    def _quote_tweet(self, tweet, content):
+        """Quote Tweet the Tweet with the provided content."""
         # TODO
         pass
 

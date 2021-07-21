@@ -50,7 +50,7 @@ class Bot:
 
         account = get_tweets.Account(username=username, user_id=user_id)
         tweets = account.get_top_tweets_percent(num_days, metric, 100)
-        tweet = self._select_tweet(tweets)
+        tweet = self._select_tweet(tweets, num_days)
 
         if quote:
             content = self._get_quote_content(tweet, metric)
@@ -100,7 +100,7 @@ class Bot:
                 account = get_tweets.Account(user_id=user)
 
         tweets = account.get_top_tweets_percent(num_days, metric, 100)
-        tweet = self._select_tweet(tweets)
+        tweet = self._select_tweet(tweets, num_days)
 
         if quote:
             content = self._get_quote_content(tweet, metric)
@@ -108,29 +108,44 @@ class Bot:
         else:
             self._retweet(tweet)
 
-    def previously_shared(self, tweet):
-        """Return whether (True/False) the tweet has been previously Quote Tweeted or Retweeted.
+    def previously_retweeted(self, tweet):
+        """Return whether (True/False) the tweet has been previously Retweeted.
 
         Args:
             tweet(get_tweets.Tweet): the Tweet object representing the Tweet.
 
         """
-        # TODO
-        pass
+        return tweet.retweeted
 
-    def _retweet(self, tweet):
-        """Retweet the Tweet."""
-        # TODO
-        pass
+    def previously_quoted(self, tweet, num_days):
+        """Return whether (True/False) the tweet has been Quote Tweeted in the previous `num_days`.
 
-    def _quote_tweet(self, tweet, content):
-        """Quote Tweet the Tweet with the provided content."""
-        # TODO
-        pass
+        Args:
+            tweet(get_tweets.Tweet): the Tweet object representing the Tweet.
+            num_days (int): the historic assessment period (i.e. whether the Tweet was Quote
+                Tweeted) in days, including the current day.
 
-    def _select_tweet(self, tweets):
-        """Return the top previously unshared Tweet from a list of ranked Tweets."""
+        """
         # TODO
+        # loop through user timeline
+        # compare bot_tweet.quoted_tweet_id with tweet.id, return True if equal
+        # return False if reached num_days
+
+    def _select_tweet(self, tweets, num_days):
+        """Return the top unshared (see notes) Tweet from a list of ranked Tweets.
+
+        Specifically, a Tweet will be returned if it has never been Retweeted and if it hasn't been
+        Quote Tweeted in the previous `num_days`.
+
+        Args:
+            tweets (list of get_tweets.Tweet): a list of Tweet objects.
+            num_days (int): the historic assessment period (i.e. whether the Tweet was Quote
+                Tweeted) in days, including the current day.
+        """
+        # TODO
+        # Loop through Tweets
+        # Return if not previously_retweeted() and not previously_quoted()
+        # Raise exception if all Tweets already shared
         pass
 
     def _retweet(self, tweet):

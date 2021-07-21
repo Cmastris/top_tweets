@@ -1,3 +1,5 @@
+import random
+
 from top_tweets import config, get_tweets, twitter_auth
 
 
@@ -140,8 +142,8 @@ class Bot:
     @staticmethod
     def _get_random_user(user_list):
         """Return a randomly selected item from a list of usernames or user IDs."""
-        # TODO
-        pass
+        assert len(user_list) > 0, "No items in the user list; unable to select a random user."
+        return random.choice(user_list)
 
 
-# bot = Bot(twitter_auth.API, usernames=config.SOURCE_USERNAMES)
+# bot = Bot(usernames=config.SOURCE_USERNAMES)

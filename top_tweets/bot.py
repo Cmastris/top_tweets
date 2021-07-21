@@ -133,6 +133,16 @@ class Bot:
         # TODO
         pass
 
+    def _retweet(self, tweet):
+        """Retweet the Tweet."""
+        # TODO
+        pass
+
+    def _quote_tweet(self, tweet, content):
+        """Quote Tweet the Tweet with the provided content."""
+        # TODO
+        pass
+
     @staticmethod
     def _get_quote_content(tweet, metric):
         """Return the Quote Tweet content (str)."""

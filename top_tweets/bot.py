@@ -108,7 +108,8 @@ class Bot:
         else:
             self._retweet(tweet)
 
-    def previously_retweeted(self, tweet):
+    @staticmethod
+    def previously_retweeted(tweet):
         """Return whether (True/False) the tweet has been previously Retweeted.
 
         Args:
@@ -117,7 +118,8 @@ class Bot:
         """
         return tweet.retweeted
 
-    def previously_quoted(self, tweet, num_days):
+    @staticmethod
+    def previously_quoted(tweet, num_days):
         """Return whether (True/False) the tweet has been Quote Tweeted in the previous `num_days`.
 
         Args:
@@ -131,7 +133,8 @@ class Bot:
         # compare bot_tweet.quoted_tweet_id with tweet.id, return True if equal
         # return False if reached num_days
 
-    def _select_tweet(self, tweets, num_days):
+    @staticmethod
+    def _select_tweet(tweets, num_days):
         """Return the top unshared (see notes) Tweet from a list of ranked Tweets.
 
         Specifically, a Tweet will be returned if it has never been Retweeted and if it hasn't been
@@ -148,12 +151,14 @@ class Bot:
         # Raise exception if all Tweets already shared
         pass
 
-    def _retweet(self, tweet):
+    @staticmethod
+    def _retweet(tweet):
         """Retweet the Tweet."""
         # TODO
         pass
 
-    def _quote_tweet(self, tweet, content):
+    @staticmethod
+    def _quote_tweet(tweet, content):
         """Quote Tweet the Tweet with the provided content."""
         # TODO
         pass

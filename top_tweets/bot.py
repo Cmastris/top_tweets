@@ -141,15 +141,16 @@ class Bot:
         Quote Tweeted in the previous `num_days`.
 
         Args:
-            tweets (list of get_tweets.Tweet): a list of Tweet objects.
+            tweets (list of get_tweets.Tweet): a list of Tweet objects in order of rank.
             num_days (int): the historic assessment period (i.e. whether the Tweet was Quote
                 Tweeted) in days, including the current day.
         """
-        # TODO
-        # Loop through Tweets
-        # Return if not previously_retweeted() and not previously_quoted()
-        # Raise exception if all Tweets already shared
-        pass
+        for t in tweets:
+            if (not Bot.previously_retweeted(t)) and (not Bot.previously_quoted(t, num_days)):
+                return t
+
+        raise ValueError("No eligible Tweets to share; all Tweets have either been Retweeted "
+                         "previously or Quote Tweeted in the previous `num_days`.")
 
     @staticmethod
     def _retweet(tweet):

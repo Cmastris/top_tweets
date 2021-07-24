@@ -1,4 +1,7 @@
+import datetime
 import random
+
+import tweepy
 
 from top_tweets import config, get_tweets, twitter_auth
 
@@ -128,10 +131,20 @@ class Bot:
                 Tweeted) in days, including the current day.
 
         """
-        # TODO
-        # loop through user timeline
-        # compare bot_tweet.quoted_tweet_id with tweet.id, return True if equal
-        # return False if reached num_days
+        cut_off = get_tweets.Account.cut_off_time(datetime.date.today(), num_days)
+        # Cursor object handles pagination and returns a list of Tweepy Status
+        for t in tweepy.Cursor(twitter_auth.API.user_timeline,
+                               include_rts=False,
+                               exclude_replies=True,
+                               tweet_mode="extended").items():
+            bot_tweet = get_tweets.Tweet(t, None)
+            if bot_tweet.published_before(cut_off):
+                break
+
+            if bot_tweet.quoted_tweet_id == tweet.id:
+                return True
+
+        return False
 
     @staticmethod
     def _select_tweet(tweets, num_days):
@@ -178,3 +191,8 @@ class Bot:
 
 
 # bot = Bot(usernames=config.SOURCE_USERNAMES)
+
+# tweet = twitter_auth.API.get_status("1405819444312653828")
+# tweet = get_tweets.Tweet(tweet, None)
+# print(tweet.text)
+# print(Bot.previously_quoted(tweet, 60))

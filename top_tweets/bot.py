@@ -56,7 +56,7 @@ class Bot:
         tweet = self._select_tweet(tweets, num_days)
 
         if quote:
-            content = self._get_quote_content(tweet, metric)
+            content = self._get_quote_content(tweet, metric, num_days)
             self._quote_tweet(tweet, content)
         else:
             self._retweet(tweet)
@@ -106,7 +106,7 @@ class Bot:
         tweet = self._select_tweet(tweets, num_days)
 
         if quote:
-            content = self._get_quote_content(tweet, metric)
+            content = self._get_quote_content(tweet, metric, num_days)
             self._quote_tweet(tweet, content)
         else:
             self._retweet(tweet)
@@ -178,10 +178,29 @@ class Bot:
         pass
 
     @staticmethod
-    def _get_quote_content(tweet, metric):
+    def _get_quote_content(tweet, metric, num_days, hashtags=None):
         """Return the Quote Tweet content (str)."""
-        # TODO
-        pass
+        if metric == "likes":
+            metric_str = "liked"
+        elif metric == "retweets":
+            metric_str = "retweeted"
+        else:
+            metric_str = "liked & retweeted"
+
+        content = "Number {} most {} Tweet by @{} in the previous {} days (incl. today)." \
+                  "".format(tweet.rank, metric_str, tweet.account.username, num_days)
+
+        all_hashtags = [h["text"] for h in tweet.hashtags]
+        if hashtags is not None:
+            all_hashtags = hashtags + all_hashtags
+
+        for hashtag in all_hashtags:
+            if len(content) + len(hashtag) > 150:
+                break
+
+            content += " #" + hashtag
+
+        return content
 
     @staticmethod
     def _get_random_user(user_list):
@@ -191,8 +210,5 @@ class Bot:
 
 
 # bot = Bot(usernames=config.SOURCE_USERNAMES)
-
+# bot.share_from_user(200, username="Cmastris")
 # tweet = twitter_auth.API.get_status("1405819444312653828")
-# tweet = get_tweets.Tweet(tweet, None)
-# print(tweet.text)
-# print(Bot.previously_quoted(tweet, 60))

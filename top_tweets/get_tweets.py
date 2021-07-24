@@ -137,7 +137,7 @@ class Account:
                                exclude_replies=True,
                                tweet_mode="extended").items():
 
-            tweet = Tweet(self, t)
+            tweet = Tweet(t, self)
             if len(tweets) == max_tweets:
                 break
             elif tweet.published_before(cut_off):
@@ -181,8 +181,8 @@ class Tweet:
     https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet
 
     Attributes:
-        account (Account or None): the Twitter user account which published the Tweet, or None.
         status (Tweepy Status): the Tweepy Status (Tweet) object.
+        account (Account or None): the Twitter user account which published the Tweet, or None.
         id (str): the Tweet's unique identifier.
         publish_time (datetime.datetime): datetime object representing when the Tweet was published.
         is_quote_tweet (bool): whether the Tweet is a Quote Tweet.
@@ -200,9 +200,9 @@ class Tweet:
         retweeted (bool): whether the Tweet has been Retweeted by the authenticating user.
 
     """
-    def __init__(self, account, status):
-        self.account = account
+    def __init__(self, status, account):
         self.status = status
+        self.account = account
         self.id = status.id_str
         self.publish_time = status.created_at
         self.is_quote_tweet = status.is_quote_status
@@ -241,9 +241,9 @@ class Tweet:
 
 # test_acc = Account(username="TechTopTweets1")
 # user_tweets = twitter_auth.API.user_timeline("TechTopTweets1", tweet_mode="extended")
-# test_tweet = Tweet(test_acc, user_tweets[2])
-# test_retweet = Tweet(test_acc, user_tweets[1])
-# test_quote_tweet = Tweet(test_acc, user_tweets[0])
+# test_tweet = Tweet(user_tweets[2], test_acc)
+# test_retweet = Tweet(user_tweets[1], test_acc)
+# test_quote_tweet = Tweet(user_tweets[0], test_acc)
 #
 # print(test_tweet.id)
 # print(test_tweet.publish_time)

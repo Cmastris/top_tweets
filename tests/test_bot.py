@@ -56,17 +56,17 @@ class TestBot:
     def test_previously_quoted_false(self, mock_tweet_prev_quoted, mock_tweepy_cursor_items):
         status = MockStatus("not_quoted_id", None, None)
         tweet = Tweet(status, None)
-        assert Bot.previously_quoted(tweet, 9999) is False
+        assert not Bot.previously_quoted(tweet, 9999)
 
     def test_previously_quoted_true(self, mock_tweet_prev_quoted, mock_tweepy_cursor_items):
         status = MockStatus("quoted_tweet_id", None, None)
         tweet = Tweet(status, None)
-        assert Bot.previously_quoted(tweet, 9999) is True
+        assert Bot.previously_quoted(tweet, 9999)
 
     def test_previously_quoted_false_date(self, mock_tweet_prev_quoted, mock_tweepy_cursor_items):
         status = MockStatus("quoted_tweet_id", None, None)
         tweet = Tweet(status, None)
-        assert Bot.previously_quoted(tweet, 30) is False
+        assert not Bot.previously_quoted(tweet, 30)
 
     @pytest.fixture
     def mock_previously_quoted(self, monkeypatch):

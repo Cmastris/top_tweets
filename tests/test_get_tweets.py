@@ -34,11 +34,11 @@ class TestAccount:
 
     def test_cut_off_time_curr_day(self):
         latest_date = datetime.date(2021, 7, 1)
-        assert Account._cut_off_time(latest_date, 1) == datetime.datetime(2021, 7, 1, 0, 0, 0)
+        assert Account.cut_off_time(latest_date, 1) == datetime.datetime(2021, 7, 1, 0, 0, 0)
 
     def test_cut_off_time_multiple_days(self):
         latest_date = datetime.date(2021, 7, 1)
-        assert Account._cut_off_time(latest_date, 3) == datetime.datetime(2021, 6, 29, 0, 0, 0)
+        assert Account.cut_off_time(latest_date, 3) == datetime.datetime(2021, 6, 29, 0, 0, 0)
 
     def test_sort_tweets_invalid_metric(self, mock_account, mock_tweet):
         with pytest.raises(AssertionError):

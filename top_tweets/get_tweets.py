@@ -96,6 +96,25 @@ class Account:
         top_num = round((top_percent/100) * len(sorted_tweets))
         return self._filter_tweets(sorted_tweets, top_num)
 
+    @staticmethod
+    def cut_off_time(latest_date, num_days):
+        """Return the Tweet collection cut-off (start) time (datetime.datetime).
+
+        Specifically, this returns `latest_date` minus (`num_days` -1), i.e. the start time for
+        `num_days` days of Tweets including the `latest_date`. For example,
+        cut_off_time(datetime.date.today(), 1) would return a datetime.datetime object representing
+        the start of the current day.
+
+        Args:
+            latest_date (datetime.date): a datetime.date object representing the latest
+                (most recent) date to collect Tweets from, e.g. the current day.
+            num_days (int): the historic Tweet collection period in days, inclusive of the
+                `latest_date`.
+
+        """
+        date = latest_date - datetime.timedelta(days=(num_days - 1))
+        return datetime.datetime(date.year, date.month, date.day)
+
     def _fetch_tweets(self, num_days, max_tweets):
         """Fetch and return a list of the account's public Tweets.
 
@@ -108,7 +127,7 @@ class Account:
                 `num_days` (defaults to None).
 
         """
-        cut_off = self._cut_off_time(datetime.date.today(), num_days)
+        cut_off = self.cut_off_time(datetime.date.today(), num_days)
         tweets = []
         print("Fetching Tweets by '{}'...".format(self))
         # Cursor object handles pagination and returns a list of Tweepy Status
@@ -131,20 +150,6 @@ class Account:
         assert len(tweets) > 0, "No Tweets (excluding Retweets/Quote Tweets/replies) returned " \
                                 "for '{}' since {}.".format(self, cut_off)
         return tweets
-
-    @staticmethod
-    def _cut_off_time(latest_date, num_days):
-        """Return the Tweet collection cut-off time (datetime.datetime).
-
-        Args:
-            latest_date (datetime.date): a datetime.date object representing the latest
-                (most recent) date to collect Tweets from, e.g. the current day.
-            num_days (int): the historic Tweet collection period in days, inclusive of the
-                `latest_date`.
-
-        """
-        date = latest_date - datetime.timedelta(days=(num_days - 1))
-        return datetime.datetime(date.year, date.month, date.day)
 
     def _sort_tweets(self, tweets, metric):
         """Sort and return a list of Tweet based on `metric` (highest to lowest)."""

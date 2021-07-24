@@ -181,7 +181,7 @@ class Tweet:
     https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/tweet
 
     Attributes:
-        account (Account): the Twitter user account which published the Tweet.
+        account (Account or None): the Twitter user account which published the Tweet, or None.
         status (Tweepy Status): the Tweepy Status (Tweet) object.
         id (str): the Tweet's unique identifier.
         publish_time (datetime.datetime): datetime object representing when the Tweet was published.

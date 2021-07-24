@@ -178,7 +178,7 @@ class Bot:
         pass
 
     @staticmethod
-    def _get_quote_content(tweet, metric, num_days, hashtags=None):
+    def _get_quote_content(tweet, metric, num_days, extra_hashtags=None):
         """Return the Quote Tweet content (str)."""
         if metric == "likes":
             metric_str = "liked"
@@ -190,11 +190,11 @@ class Bot:
         content = "Number {} most {} Tweet by @{} in the previous {} days (incl. today)." \
                   "".format(tweet.rank, metric_str, tweet.account.username, num_days)
 
-        all_hashtags = [h["text"] for h in tweet.hashtags]
-        if hashtags is not None:
-            all_hashtags = hashtags + all_hashtags
+        hashtags = [h["text"] for h in tweet.hashtags]
+        if extra_hashtags is not None:
+            hashtags = extra_hashtags + hashtags
 
-        for hashtag in all_hashtags:
+        for hashtag in hashtags:
             if len(content) + len(hashtag) > 150:
                 break
 

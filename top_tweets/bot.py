@@ -177,8 +177,9 @@ class Bot:
     @staticmethod
     def _retweet(tweet):
         """Retweet the Tweet."""
-        # TODO
-        pass
+        url = "https://twitter.com/{}/status/{}".format(tweet.account.username, tweet.id)
+        print("Retweeting Tweet (rank {}): {}".format(tweet.rank, url))
+        twitter_auth.API.retweet(tweet.id)
 
     @staticmethod
     def _quote_tweet(tweet, content):

@@ -182,9 +182,11 @@ class Bot:
 
     @staticmethod
     def _quote_tweet(tweet, content):
-        """Quote Tweet the Tweet with the provided content."""
-        # TODO
-        pass
+        """Quote Tweet (embed) the Tweet with the provided content."""
+        embed_url = "https://twitter.com/{}/status/{}".format(tweet.account.username, tweet.id)
+        print("Publishing Quote Tweet...")
+        print(content + " " + embed_url)
+        twitter_auth.API.update_status(content, attachment_url=embed_url)
 
     @staticmethod
     def _get_quote_content(tweet, metric, num_days, extra_hashtags, max_chars):
@@ -234,5 +236,5 @@ class Bot:
 
 
 # bot = Bot(usernames=config.SOURCE_USERNAMES)
-# bot.share_from_user(200, username="Cmastris", extra_hashtags=["tech"])
+# bot.share_from_user(30, username="ForbesTech", extra_hashtags=["technology"])
 # tweet = twitter_auth.API.get_status("1405819444312653828")

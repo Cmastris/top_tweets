@@ -236,6 +236,11 @@ class Bot:
         return random.choice(user_list)
 
 
-# bot = Bot(usernames=config.SOURCE_USERNAMES)
-# bot.share_from_user(30, username="ForbesTech", extra_hashtags=["technology"])
-# tweet = twitter_auth.API.get_status("1405819444312653828")
+def main():
+    """Quote Tweet a top Tweet from a random user in `SOURCE_USERNAMES`."""
+    bot = Bot(usernames=config.SOURCE_USERNAMES)
+    bot.share_from_random_user(7)
+
+
+if __name__ == "__main__":
+    main()

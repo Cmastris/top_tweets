@@ -239,7 +239,7 @@ class Bot:
 def main():
     """Quote Tweet a top Tweet from a random user in `SOURCE_USERNAMES`."""
     bot = Bot(usernames=config.SOURCE_USERNAMES)
-    bot.share_from_random_user(7)
+    bot.share_from_random_user(7, extra_hashtags=config.HASHTAGS)
 
 
 if __name__ == "__main__":

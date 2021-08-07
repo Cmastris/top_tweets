@@ -64,6 +64,10 @@ Yes, the Twitter API's standard rate and request limits apply. Exceptions/errors
 
 More details can be found in Twitter's [API v1.1 rate limits documentation](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits).
 
+### Can I change the Quote Tweet content?
+
+For simplicity, Quote Tweet content isn't editable via public `Bot` methods. However, you can edit how this content is constructed in the `_get_quote_content` method. 
+
 ### How can I ask questions, report bugs, or provide feedback?
 Feel free to create an issue or open a new discussion.
 

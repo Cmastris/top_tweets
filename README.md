@@ -7,8 +7,9 @@ Retrieve & sort Tweets by engagement and republish them via a Twitter bot.
 Use `get_tweets.py` to retrieve, sort, filter, and return the top Tweets of Twitter user accounts.
 
 - Create an instance of `Account` using either a username or user ID
-- Use `get_top_tweets_num()` to retrieve the top `top_num` Tweets from the previous `num_days`, based on `metric`
-- Use `get_top_tweets_percent()` to retrieve the top `top_percent` Tweets from the previous `num_days`, based on `metric`
+- Use `get_top_tweets_num()` to retrieve the top `top_num` Tweets (list of Tweet objects) from the previous `num_days`, based on `metric`
+- Use `get_top_tweets_percent()` to retrieve the top `top_percent` Tweets (list of Tweet objects) from the previous `num_days`, based on `metric`
+- `Tweet` instances have attributes including the Tweepy `Status` object, type of Tweet, ID, content, engagement metrics, and publish time 
 - More detailed documentation is provided within the class and method docstrings
 
 For example...

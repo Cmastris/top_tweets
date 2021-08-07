@@ -38,7 +38,7 @@ class Account:
     def get_top_tweets_num(self, num_days, metric, top_num, max_tweets=None):
         """Return the top `top_num` Tweets from the previous `num_days`, based on `metric`.
 
-        For example, get_top_tweets_num(30, likes, 10) would return the top 10 Tweets based
+        For example, get_top_tweets_num(30, "likes", 10) would return the top 10 Tweets based
         on their number of Likes (in order from highest to lowest Likes) from the previous
         30 days (including the current day).
 
@@ -68,7 +68,7 @@ class Account:
     def get_top_tweets_percent(self, num_days, metric, top_percent, max_tweets=None):
         """Return the top `top_percent` Tweets from the previous `num_days`, based on `metric`.
 
-        For example, get_top_tweets_percent(30, likes, 10) would return the top 10% of Tweets
+        For example, get_top_tweets_percent(30, "likes", 10) would return the top 10% of Tweets
         based on their number of Likes (in order from highest to lowest Likes) from the previous
         30 days (including the current day).
 

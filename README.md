@@ -42,3 +42,7 @@ bot = Bot(usernames=["example_user_1", "example_user_2", "example_user_3"])
 # where `likes_retweets_combined` is used by default to sort/rank Tweets
 bot.share_from_random_user(7, quote=True)
 ```
+
+## Setup
+1. Requirements can be found in [requirements.txt](/requirements.txt). The project has been developed and tested using Python 3.9, but is likely to be compatible with all versions of Python 3.
+2. Create a `config.py` file using [config_sample.py](/top_tweets/config_sample.py) as a template. Instructions for acquiring the required Twitter API credentials can be found in [Twitter's documentation](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api).

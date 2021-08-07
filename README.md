@@ -52,6 +52,12 @@ bot.share_from_random_user(7, quote=True)
 
 ## FAQs
 
+### Is the Twitter API used directly?
+
+This project was built using [Tweepy](https://www.tweepy.org/), specifically [version 3.10.0](https://docs.tweepy.org/en/v3.10.0/), which is used to access version 1.1 of the Twitter API.
+
+Thanks to the Tweepy team!
+
 ### Are there any limits?
 
 Yes, the Twitter API's standard rate and request limits apply. Exceptions/errors relating to limits aren't explicitly handled, but [`tweepy.API`](https://docs.tweepy.org/en/v3.10.0/api.html#tweepy-api-twitter-api-wrapper) (editable in `twitter_auth.py`) can be configured to wait for rate limits to replenish.

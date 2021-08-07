@@ -31,7 +31,7 @@ Use `bot.py` to Retweet or Quote Tweet the top Tweets of Twitter user accounts.
 - Use `share_from_user()` to Quote Tweet or Retweet a top Tweet (that hasn't already been shared) by a specific user, from the previous `num_days` based on `metric`
 - Use `share_from_random_user()` to Quote Tweet or Retweet a top Tweet (that hasn't already been shared) by a randomly selected user from a list, from the previous `num_days` based on `metric`
 - If the #1 Tweet has already been shared then the #2 Tweet will be shared instead, and so on
-- Quote content includes the account, Tweet rank (e.g. number 1), `metric`, `num_days`, and (optionally) additional hashtags
+- Quote content includes the account, Tweet rank (e.g. number 1), `metric`, `num_days`, and (optionally) additional hashtags (see also: [changing the Quote Tweet content](#can-i-change-the-quote-tweet-content))
 - More detailed documentation is provided within the class and method docstrings
 
 For example...
@@ -68,7 +68,7 @@ More details can be found in Twitter's [API v1.1 rate limits documentation](http
 
 ### Can I change the Quote Tweet content?
 
-For simplicity, Quote Tweet content isn't editable via public `Bot` methods. However, you can edit how this content is constructed in the `_get_quote_content` method. 
+For simplicity, Quote Tweet content isn't editable via public `Bot` methods. However, you can edit how this content is constructed in the `Bot._get_quote_content()` method.
 
 ### How can I ask questions, report bugs, or provide feedback?
 Feel free to create an issue or open a new discussion.

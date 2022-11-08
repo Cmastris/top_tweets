@@ -1,5 +1,5 @@
 import datetime
-
+import pytz
 import tweepy
 
 from top_tweets import twitter_auth
@@ -236,4 +236,11 @@ class Tweet:
             time (datetime.datetime): a datetime.datetime object.
 
         """
-        return self.publish_time < time
+        try:
+            return self.publish_time < time
+        except TypeError:
+            # Offset-naive (`time`) vs offset-aware (`publish_time`) inconsistency
+            # https://stackoverflow.com/a/15307743/11262798
+            utc = pytz.UTC
+            time = utc.localize(time)
+            return self.publish_time < time

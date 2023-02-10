@@ -48,6 +48,8 @@ bot.share_from_random_user(7, quote=True)
 
 [@TechTopTweets1](https://twitter.com/TechTopTweets1) demonstrates the bot in action, implemented via `main()` in `bot.py`.
 
+![Top Tweets Bot Example Tweet](/images/tech-top-tweets-bot-example.png)
+
 ## Setup
 1. Requirements can be found in [requirements.txt](/requirements.txt). The project has been developed and tested using Python 3.9, but is likely to be compatible with other recent versions of Python 3.
 2. Create a `config.py` file using [config_sample.py](/top_tweets/config_sample.py) as a template. Instructions for acquiring the required Twitter API credentials can be found in [Twitter's documentation](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api).

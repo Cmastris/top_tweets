@@ -1,5 +1,7 @@
 # Top Tweets
 
+### This project is no longer maintained and isn't functional any more due to Twitter/X API changes. The legacy README is retained below for anyone who is interested in the original functionality at the time of development.
+
 Retrieve Tweets sorted by engagement and (optionally) republish them via a Twitter bot.
 
 ## Retrieve top Tweets
@@ -76,4 +78,4 @@ For simplicity, Quote Tweet content isn't editable via public `Bot` methods. How
 Feel free to create an issue or open a new discussion.
 
 ### Is this project in active development?
-There are no further updates/features planned, and I'm not looking for contributions, but I'll be happy to fix any (significant) bugs.
+This project is no longer maintained and is no longer functional due to Twitter/X API changes.
